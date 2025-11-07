@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edible Ecologicals - Climate Change Through Ice Cream</title>
+    
+    <!-- 
+    ===== HOW TO ADD YOUR BACKGROUND IMAGE =====
+    
+    1. Save your image file (the bark texture photo) in the same folder as this HTML file
+    2. Name your image something simple like "bark-texture.jpg" or "background.png"
+    3. In the CSS below, find the .hero section (around line 35)
+    4. Replace 'bark-texture.png' with your actual image filename
+    5. Save the file and refresh your browser
+    
+    The image will appear behind the title with a semi-transparent overlay
+    to ensure the text remains readable.
+    -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --forest-green: #2d5a2d;
+            --birch-cream: #f5e6d3;
+            --maple-amber: #d2691e;
+            --earth-brown: #8b4513;
+            --ice-white: #fafafa;
+            --text-dark: #2c2c2c;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--birch-cream) 0%, var(--ice-white) 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            
+            /* ========================================
+               BACKGROUND IMAGE SETUP
+               ========================================
+               Option 1: Local image file
+               - Replace 'bark-texture.png' with your image filename
+               - Examples: 'bark-texture.jpg', 'forest-background.png'
+               - Make sure the image is in the same folder as this HTML
+               
+               Option 2: Online image URL
+               - Replace with full URL like:
+                 url('https://example.com/path/to/image.jpg')
+                 
+               To adjust image visibility:
+               - Change the opacity values (0.7 and 0.8) in the gradient
+               - Lower values = more transparent = image more visible
+               - Higher values = more opaque = text more readable
+               ======================================== */
+            
+            /* Fallback background color if image doesn't load */
+            background-color: var(--birch-cream);
+            
+            /* Background with overlay to ensure text readability */
+            background-image: 
+                linear-gradient(rgba(245, 230, 211, 0.7), rgba(250, 250, 250, 0.8)),
+                url('bark-texture.png');  /* <-- CHANGE THIS TO YOUR IMAGE FILE NAME */
+                
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 1rem;
+            color: var(--forest-green);
+            font-weight: 300;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), 
+                         -1px -1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .tagline {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            color: var(--earth-brown);
+            margin-bottom: 2rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .event-info {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-info p {
+            margin: 0.5rem 0;
+            color: var(--text-dark);
+        }
+
+        .event-info a {
+            color: var(--forest-green);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--forest-green);
+            transition: all 0.3s;
+        }
+
+        .event-info a:hover {
+            color: var(--maple-amber);
+            border-bottom-color: var(--maple-amber);
+        }
+
+        /* Navigation dots */
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid var(--forest-green);
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-dot.active,
+        .nav-dot:hover {
+            background: var(--forest-green);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--forest-green);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 300;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--maple-amber);
+        }
+
+        /* Story Section */
+        .story {
+            background: white;
+            position: relative;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .story-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tree-illustration {
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, var(--forest-green) 0%, var(--maple-amber) 100%);
+            border-radius: 50%;
+            opacity: 0.1;
+            position: relative;
+        }
+
+        /* Flavors Section */
+        .flavors {
+            background: linear-gradient(to bottom, white, var(--birch-cream));
+        }
+
+        .flavor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .flavor-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flavor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--maple-amber), var(--earth-brown));
+        }
+
+        .flavor-card:nth-child(2)::before {
+            background: linear-gradient(90deg, var(--birch-cream), var(--forest-green));
+        }
+
+        .flavor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .flavor-name {
+            font-size: 2rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .flavor-description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .flavor-notes {
+            font-style: italic;
+            color: var(--maple-amber);
+            border-left: 3px solid var(--maple-amber);
+            padding-left: 1rem;
+        }
+
+        /* Process Section */
+        .process {
+            background: white;
+        }
+
+        .process-timeline {
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .process-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .process-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .process-item:nth-child(even) .process-content {
+            direction: ltr;
+        }
+
+        .process-content {
+            background: var(--ice-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .process-title {
+            font-size: 1.5rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Collaborators Section */
+        .collaborators {
+            background: linear-gradient(to bottom, var(--birch-cream), white);
+            text-align: center;
+        }
+
+        .collaborator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .collaborator-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .collaborator-card:hover {
+            transform: scale(1.05);
+        }
+
+        .collaborator-name {
+            font-size: 1.3rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .collaborator-role {
+            color: var(--maple-amber);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .collaborator-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .collaborator-card a {
+            color: var(--forest-green);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--forest-green);
+            transition: all 0.3s;
+        }
+
+        .collaborator-card a:hover {
+            color: var(--maple-amber);
+            border-bottom-color: var(--maple-amber);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--forest-green);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .footer-link {
+            color: var(--birch-cream);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--maple-amber);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .story-content,
+            .flavor-grid,
+            .process-item {
+                grid-template-columns: 1fr;
+            }
+
+            .process-item:nth-child(even) {
+                direction: ltr;
+            }
+
+            .nav-dots {
+                display: none;
+            }
+
+            .flavor-card {
+                padding: 2rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" onclick="scrollToSection('hero')"></div>
+        <div class="nav-dot" onclick="scrollToSection('story')"></div>
+        <div class="nav-dot" onclick="scrollToSection('flavors')"></div>
+        <div class="nav-dot" onclick="scrollToSection('process')"></div>
+        <div class="nav-dot" onclick="scrollToSection('collaborators')"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Edible Ecologicals</h1>
+                <p class="tagline">Tasting Climate Change Through New England's Forests</p>
+                <div class="event-info">
+                    <p><strong>Abundant Futures / Live</strong></p>
+                    <p>November 10, 2025 | ICA/Boston</p>
+                    <p><a href="https://events.massdesigngroup.org/abundantfutureslive2025" target="_blank">Learn more about the event →</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story">
+        <div class="container">
+            <h2 class="section-title">The Story</h2>
+            <div class="story-content">
+                <div class="story-text">
+                    <p>Edible Ecologicals transforms the complex narrative of climate change into a visceral, sensory experience through the medium of ice cream. This artistic exploration captures the delicate balance of New England's forest ecosystems, translating environmental data and ecological shifts into flavors that tell the story of our changing landscape.</p>
+                    <br>
+                    <p>As temperatures rise and precipitation patterns shift, the iconic sugar maples and paper birches of New England face an uncertain future. This project invites participants to literally taste these changes, creating an intimate connection between our palates and the planet's transformation.</p>
+                    <br>
+                    <p>By partnering with local syrup producers and artisanal ice cream makers, we bridge the gap between traditional forest knowledge and contemporary climate science, offering a unique perspective on environmental change that engages all the senses.</p>
+                </div>
+                <div class="story-visual">
+                    <div class="tree-illustration"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flavors Section -->
+    <section id="flavors" class="flavors">
+        <div class="container">
+            <h2 class="section-title">The Flavors</h2>
+            <div class="flavor-grid">
+                <div class="flavor-card">
+                    <h3 class="flavor-name">Maple Migration</h3>
+                    <p class="flavor-description">A tribute to the sugar maple's northward journey, this flavor captures the bittersweet reality of shifting forest boundaries. Rich maple syrup from traditional New England producers is balanced with subtle notes that evoke the stress and resilience of these iconic trees.</p>
+                    <p class="flavor-notes">Tasting notes: Deep caramel sweetness with hints of wood smoke and a touch of salt, representing the trees' struggle and adaptation.</p>
+                </div>
+                <div class="flavor-card">
+                    <h3 class="flavor-name">Birch Resilience</h3>
+                    <p class="flavor-description">Celebrating the adaptable paper birch, this unique flavor showcases the distinctive taste of birch syrup—earthy, complex, and unlike anything you've experienced. It tells the story of a species finding new ecological niches as the climate shifts.</p>
+                    <p class="flavor-notes">Tasting notes: Molasses-like depth with savory undertones, balanced by cream and subtle berry notes, reflecting the birch's pioneering spirit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process">
+        <div class="container">
+            <h2 class="section-title">The Process</h2>
+            <div class="process-timeline">
+                <div class="process-item">
+                    <div class="process-content">
+                        <h3 class="process-title">Research & Foraging</h3>
+                        <p>We began by studying climate data and forest health reports, working with ecologists to understand the specific impacts on New England's tree species. This research informed our flavor profiles and narrative.</p>
+                    </div>
+                    <div class="process-content">
+                        <h3 class="process-title">Syrup Sourcing</h3>
+                        <p>We partnered with traditional syrup producers who have witnessed firsthand the changes in sap flow patterns and season timing, incorporating their generational knowledge into our project.</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="process-content">
+                        <h3 class="process-title">Flavor Development</h3>
+                        <p>Working with New City Microcreamery's expert artisans, we translated our research into flavor profiles that balance scientific accuracy with sensory delight, creating ice creams that are both educational and delicious.</p>
+                    </div>
+                    <div class="process-content">
+                        <h3 class="process-title">Artistic Expression</h3>
+                        <p>Each batch is crafted with intention, turning data points into taste experiences. The presentation and serving ritual become part of the artwork, inviting contemplation and conversation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaborators Section -->
+    <section id="collaborators" class="collaborators">
+        <div class="container">
+            <h2 class="section-title">Collaborators</h2>
+            <div class="collaborator-grid">
+                <div class="collaborator-card">
+                    <h3 class="collaborator-name">New City Microcreamery</h3>
+                    <p class="collaborator-role">Ice Cream Artisans</p>
+                    <p class="collaborator-description">Cambridge and Boston's premier small-batch ice cream makers, known for their innovative flavors and commitment to local sourcing. Their expertise in crafting unique frozen experiences brings our ecological narrative to life.</p>
+                    <p><a href="https://newcitymicrocreamery.com" target="_blank">Visit their website</a></p>
+                </div>
+                <div class="collaborator-card">
+                    <h3 class="collaborator-name">David Moore - Crooked Chimney</h3>
+                    <p class="collaborator-role">Birch Syrup Producer</p>
+                    <p class="collaborator-description">New Hampshire's pioneering birch syrup producer, David has been tapping birch trees since 2008. His deep understanding of alternative syrup production and the changing patterns of sap flow provides crucial insight into forest adaptation.</p>
+                </div>
+                <div class="collaborator-card">
+                    <h3 class="collaborator-name">Local Maple Producers</h3>
+                    <p class="collaborator-role">Traditional Knowledge Keepers</p>
+                    <p class="collaborator-description">Working with multi-generational maple syrup producers across New England who have observed decades of changes in sugaring seasons, providing both ingredients and invaluable historical perspective.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Edible Ecologicals © 2025</p>
+            <p>An art installation for <a href="https://events.massdesigngroup.org/abundantfutureslive2025" class="footer-link" target="_blank">Abundant Futures / Live</a></p>
+            <p>November 10, 2025 | ICA/Boston</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll navigation
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            updateNavDots(sectionId);
+        }
+
+        // Update navigation dots
+        function updateNavDots(activeSectionId) {
+            const dots = document.querySelectorAll('.nav-dot');
+            const sections = ['hero', 'story', 'flavors', 'process', 'collaborators'];
+            const activeIndex = sections.indexOf(activeSectionId);
+            
+            dots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Update nav dots on scroll
+        window.addEventListener('scroll', () => {
+            const sections = ['hero', 'story', 'flavors', 'process', 'collaborators'];
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+            
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                    updateNavDots(sectionId);
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section:not(.hero)').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
